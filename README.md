@@ -1,3 +1,61 @@
+# About 
+This repo is a fork of `cypress-test-tiny` and reproduces a issue using cypress
+to programmatically log in to Okta before running tests.
+
+I have followed the guide from the official docs and still have this issue.
+https://docs.cypress.io/guides/end-to-end-testing/okta-authentication#What-you-ll-learn
+
+For this demo you can use the username `chrislacey89+2@gmail.com` and password
+`bugpassword` to log in with Okta. I have these values hard coded in the the
+test file.
+
+## Steps to reproduce
+1. Run the react app using `npm run dev`.
+1. Run the cypress tests using `npm run cypress:open`.
+1. Click on the `login.cy.js` test.
+1. Observe the test fail. The error seems to have something to do with
+   `authClient.token.getWithoutPrompt` not returning.
+The error message is: 
+```js
+// cy.then() timed out after waiting 4000ms.
+// Your callback function returned a promise that never resolved.
+// The callback function was:
+
+({
+body
+}) => {
+const user = body._embedded.user;
+const config = {
+issuer: https://dev-44127998.okta.com/oauth2/default,
+clientId: "0oa6vydtm7aZkSbNJ5d7",
+redirectUri: http://localhost:5173/login/callback,
+scope: ["openid", "email", "profile"]
+};
+const authClient = new _oktaAuthJs.OktaAuth(config);
+console.log("authClient", authClient);
+return authClient.token.getWithoutPrompt({
+sessionToken: body.sessionToken
+}).then(({
+tokens
+}) => {
+const userItem = {
+token: tokens.accessToken.value,
+user: {
+sub: user.id,
+email: user.profile.login,
+given_name: user.profile.firstName,
+family_name: user.profile.lastName,
+preferred_username: user.profile.login
+}
+};
+window.localStorage.setItem("oktaCypress", JSON.stringify(userItem));
+log.snapshot("after");
+log.end();
+}).catch(err => {
+});
+}
+```
+
 # cypress-test-tiny
 
 > Tiny Cypress E2E test case

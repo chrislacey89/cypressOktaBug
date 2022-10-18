@@ -63,7 +63,6 @@ const App = () => {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Routes>
         <Route path="login/callback" element={<LoginCallback loadingElement={<>loading...</>} />} />
-        <Route path="/logout" element={<Logout />} />
           <Route path="/" element={<RequiredAuth />}>
             <Route path="" element={<div>you have reached the secure route</div>} />
           </Route>

@@ -27,13 +27,11 @@ Cypress.Commands.add("loginByOktaApi", (username, password) => {
     };
 
     const authClient = new OktaAuth(config);
-    console.log("authClient", authClient);
     return authClient.token
       .getWithoutPrompt({
         sessionToken: body.sessionToken,
       })
       .then(({ tokens }) => {
-        console.log("ey");
         const userItem = {
           token: tokens.accessToken.value,
           user: {
