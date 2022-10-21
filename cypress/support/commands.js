@@ -53,5 +53,5 @@ Cypress.Commands.add("loginByOktaApi", (username, password) => {
       });
   });
 
-  // cy.visit('/');
+  cy.visit('/');
 });

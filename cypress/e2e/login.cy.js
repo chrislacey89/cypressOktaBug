@@ -4,6 +4,6 @@ describe("Okta", function () {
   });
 
   it("shows onboarding", function () {
-    cy.contains("Get Started").should("be.visible");
+    cy.contains("you have reached the secure route").should("be.visible");
   });
 });
